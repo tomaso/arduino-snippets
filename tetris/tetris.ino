@@ -139,8 +139,9 @@ void placeTheBrick(void)
   
   x = PG_WIDTH/2;
   y = 0;
-  current_brick = random(0, 5);
-//  current_brick = 0;
+  int last_brick = current_brick;
+  while(last_brick == current_brick)
+    current_brick = random(0, 5);
   checkCompleteLines();
 }
 
@@ -205,7 +206,9 @@ void loop(void) {
   if(digitalRead(LEFT_BTN_PIN) == HIGH)
     dx = -1;
   if(digitalRead(ROTATE_BTN_PIN) == HIGH)
-     rotation = 1 - rotation;
+     rotation += 1;
+     if(rotation==4)
+      rotation = 0;
 
   moveCurrentBrick(dx, 0);
   cycle++;
